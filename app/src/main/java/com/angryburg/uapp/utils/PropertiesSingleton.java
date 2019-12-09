@@ -83,7 +83,7 @@ public final class PropertiesSingleton {
         setProperty("looping", "false");
         setProperty("shuffle", "false");
         setProperty("current_song", "");
-        setProperty("debug", "false");
+        setProperty("debug", "true");
         setProperty("bar", "true");
         setProperty("scroll_to_bar", "true");
         setProperty("hide_version", "false");

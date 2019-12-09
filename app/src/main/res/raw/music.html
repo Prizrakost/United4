@@ -1,11 +1,11 @@
 <!doctype html>
 <html>
     <head>
-
+        <script src="mock.js"></script>
         <script>
             // some defaults in case something fails to get set
             var page = 0;
-            var items_per_page = 3;
+            var items_per_page = 5;
             var ol = function ol() {
                 // img1 is the music box, make it flush with the top and as wide as it can go
                 var img1 = document.getElementById("img1");
@@ -86,9 +86,7 @@
                 // Clear the song list because we're about to redraw it
                 contents.innerHTML = "";
                 // Set the page session variable
-
                 unitedPropertiesIf.setSessionVariable("page", page.toString());
-
                 var all_songs = JSON.parse(unitedPropertiesIf.getProperty("ordered_songs"));
                 // on the page max_page the next button will be disabled
                 var max_page = Math.ceil(all_songs.length / items_per_page) - 1;
@@ -106,7 +104,6 @@
                 } else {
                     document.getElementById("next").src = "next_enabled.png";
                 }
-
                 // For each song on the current page
                 for (var i = 0; i < items_per_page; i++) {
                     var index = start + i;
@@ -128,23 +125,33 @@
                         text.style.border = "2px solid #3C84CF"
                     }
                     text.classList.add("text");
-                    text.style.lineHeight = "50px"; // poor man's vertical centering
+                    text.style.lineHeight = "40px"; // poor man's vertical centering
                     text.style.color = "white"
                     text.style.position = "absolute"
                     text.style.textAlign = "center";
                     text.classList.add("wrapper");
                     contents.appendChild(text);
-                    
+                    // Shrink the text pixel by pixel until it fits in the fucking box
+                    // in the future we could set something like padding-top and padding-bottom instead of line-height and
+                    // we wouldn't need this because we wouldn't need to worry about it spanning multiple lines
                     text.style.top = (20 + (i * 70)).toString() + "px";
                     var size = 15;
+                    loopUntilItemBoxProperHeight(text, size);
                 }
-
                 // add the "4/13" text, and below that a "Get Soundtrack" button
                 var marker = document.createElement("div");
                 marker.innerHTML = (Number(page) + 1) + "/" + Math.ceil(all_songs.length / items_per_page) + "<br /><span onClick='unitedPropertiesIf.launchHTML(\"https://garoad.bandcamp.com\")' class=\"get_soundtrack\">Get Soundtrack</span>"
                 marker.style.marginTop = (20 + (70 * items_per_page)).toString() + "px";
                 marker.style.color = "white";
                 contents.appendChild(marker);
+            }
+            var loopUntilItemBoxProperHeight = function(text, size) {
+                do {
+                    text.style.fontSize = size.toString() + "px";
+                    size--;
+                    debugger;
+                    //setTimeout(function() {loopUntilItemBoxProperHeight(text, size - 1);}, 10);
+                } while (text.clientHeight > 50);
             }
             // called to play a song
             var playSong = function playSong(title) {
@@ -157,8 +164,6 @@
                 changeButtonSrcs();
                 newPage();
             }
-
-
             // called to skip backwards a song
             window.skip_back = function skip_back() {
                 var all_songs = JSON.parse(unitedPropertiesIf.getProperty("ordered_songs"));

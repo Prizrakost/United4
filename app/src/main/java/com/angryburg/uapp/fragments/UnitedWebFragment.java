@@ -78,6 +78,7 @@ public class UnitedWebFragment extends Fragment {
                 webview.setBackgroundColor(Color.rgb(0, 0, 0));
                 webview.getSettings().setJavaScriptEnabled(true);
                 webview.getSettings().setAllowFileAccess(true);
+                webview.setWebContentsDebuggingEnabled(true);
                 //webview.getSettings().setDomStorageEnabled(true);
                 //webview.getSettings().setAllowFileAccessFromFileURLs(true);
                 //webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
