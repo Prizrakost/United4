@@ -14,9 +14,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
-        '1' {
-        signingConfig signingConfigs.debug
-        }
     }
     namespace 'com.angryburg.uapp'
 }
