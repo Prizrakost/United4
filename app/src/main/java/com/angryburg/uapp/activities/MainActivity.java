@@ -1,5 +1,7 @@
 package com.angryburg.uapp.activities;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.FragmentManager;
@@ -7,12 +9,18 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 
 import java.net.URI;
 import java.util.Iterator;
+import java.util.List;
 
 import com.angryburg.uapp.API.NotificationWorker;
 import com.angryburg.uapp.R;
@@ -57,6 +65,16 @@ public class MainActivity extends Activity implements UnitedActivity {
         if (getClass().equals(MainActivity.class)) {
             setupView(R.layout.main_activity, R.id.activity_main_activity);
         }
+
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> pkgAppsList = getPackageManager().queryIntentActivities( mainIntent, 0);
+    }
+
+    public void onAppsButtonClick(View V){
+
+        //setContentView(R.layout.apps_list);
+
     }
 
     /**
