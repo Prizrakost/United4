@@ -74,6 +74,8 @@ public class MainActivity extends Activity implements UnitedActivity {
     public void onAppsButtonClick(View V){
 
         //setContentView(R.layout.apps_list);
+        Intent intent = new Intent(MainActivity.this, AppList.class);
+        startActivity(intent);
 
     }
 
