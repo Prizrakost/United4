@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.angryburg.uapp.R;
 
@@ -34,7 +39,7 @@ public class AppList extends Activity {
          */
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> pkgAppsList = getPackageManager().queryIntentActivities( mainIntent, 0);
+        final List<ResolveInfo> pkgAppsList = getPackageManager().queryIntentActivities( mainIntent, 0);
 
         final String[] pkgAppsListNames = new String[pkgAppsList.size()];
 
@@ -45,5 +50,16 @@ public class AppList extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, pkgAppsListNames);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                    long id) {
+                //startActivity(new Intent(pkgAppsList.get(position).resolvePackageName));
+                //startActivity(new Intent(pkgAppsList.get(position).activityInfo.targetActivity));
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage(pkgAppsList.get(position).activityInfo.taskAffinity);
+                startActivity(launchIntent);
+            }
+        });
     }
 }
