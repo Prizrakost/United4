@@ -3,6 +3,7 @@ package com.angryburg.uapp.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -42,13 +43,17 @@ public class AppList extends Activity {
         final List<ResolveInfo> pkgAppsList = getPackageManager().queryIntentActivities( mainIntent, 0);
 
         final String[] pkgAppsListNames = new String[pkgAppsList.size()];
+        final int[] pkgAppsListIcons = new int[pkgAppsList.size()];
 
         for (int i = 0; i < pkgAppsList.size(); i++) {
             pkgAppsListNames[i] = pkgAppsList.get(i).loadLabel(getPackageManager()).toString();
         }
+        for (int i = 0; i < pkgAppsList.size(); i++) {
+            pkgAppsListIcons[i] = pkgAppsList.get(i).icon;
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, pkgAppsListNames);
+                R.layout.list_item, R.id.text_view_cat_name, pkgAppsListNames);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
