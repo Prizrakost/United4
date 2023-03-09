@@ -163,6 +163,13 @@
             window.dangeru = function() {
                 unitedPropertiesIf.launchHTML(unitedPropertiesIf.getProperty("awoo_endpoint"));
             }
+            var makeExtras = function makeExtras(obj) {
+                // ""Abstraction""
+                return JSON.stringify(obj);
+            }
+            var apps = function apps() {
+                unitedPropertiesIf.doAction("com.angryburg.uapp", "com.angryburg.uapp.activities.AppList", makeExtras({"":""}));
+            }
         </script>
 <style>
     img, .row, #patch_notes_text {
@@ -199,6 +206,9 @@
         <div class="row one_one">
             <img id="camo" onClick="unitedPropertiesIf.launchHTML('file:///android_res/raw/camo.html')" />
             <img id="kira" onClick="unitedPropertiesIf.launchHTML('https://kiramiki.dangeru.us')" />
+        </div>
+        <div class="row one">
+            <img id="launcher" onClick="apps()" />
         </div>
     </body>
 </html>

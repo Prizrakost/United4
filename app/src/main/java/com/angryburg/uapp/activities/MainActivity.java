@@ -66,9 +66,12 @@ public class MainActivity extends Activity implements UnitedActivity {
             setupView(R.layout.main_activity, R.id.activity_main_activity);
         }
 
+        /*
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> pkgAppsList = getPackageManager().queryIntentActivities( mainIntent, 0);
+
+         */
     }
 
     public void onAppsButtonClick(View V){
